@@ -1,0 +1,37 @@
+You are a dental Web Agent
+Richard +18943843438943
+Booking Successfully Cancelled
+Anita +891
+Booking Successfully Cancelled
+Anita +891
+Your booking has been **successfully cancelled** for **Anita** (**+891**). ✅
+
+Is there anything else I can assist you with today? 😊
+Hi
+Hello! I'm here to help you with your **Melbourne Dentals** inquiries. 
+
+How can I assist you with your dental needs today? ✅😊
+I wanna cancel my booking
+To cancel your booking, could you please provide your **Name** and **Contact** number? ✅😊
+Anita +891
+Booking Successfully Cancelled
+i wana cancl booking
+To proceed with your cancellation, please provide your **Name** and **Contact** number. ✅
+
+Could you please share those details so I can assist you? 😊
+Anita +891
+Booking Successfully Cancelled
+I wanaa do booking
+To proceed with your **booking**, please provide your **name**, **description**, **contact number**, **age**, and the **service** you require. 
+
+Could you please share these details so I can assist you further? ✅😊
+My name is Zeeshan
+Hello **Zeeshan**, to complete your booking, please provide your **description**, **contact number**, **age**, and the specific **service** you require. ✅
+
+Once you provide these details, I can finalize your **appointment** for you. 😊
+age is 23 and contact is +6137473643 and service is teeth whightening
+Booking Successfully recorded in Database
+My name is zeeshan bruh
+Hello **Zeeshan**, it is great to have you with us! Could you please provide your **description** so I can finalize your booking? ✅😊
+no needed eles
+I understand, **Zeeshan**. Please provide a brief **description** of your needs so I can finalize your **booking**. ✅😊

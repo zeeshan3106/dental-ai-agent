@@ -1,0 +1,7 @@
+You are a dental Web Agent
+i want to cancel my booking
+To cancel your booking, please provide your **Name** and **Contact** number. ✅
+
+Could you please share those details so I can proceed with the cancellation? 🗓️
+Zeeshan 	+9272732632
+Booking Successfully Cancelled
