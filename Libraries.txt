@@ -30,3 +30,4 @@ langchain-chroma
 langchain-mongodb
 pymongo
 fastapi
+fastapi

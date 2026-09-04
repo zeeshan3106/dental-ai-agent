@@ -7,7 +7,7 @@ st.title("Dental Agent")
 
 input = st.text_input("Enter")
 
-if st.button("Enter"):
+if st.button("Enter "):
     res = requests.post(API,input)
     st.write(res.json())
 
