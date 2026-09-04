@@ -59,7 +59,7 @@ prompts = PromptTemplate(
     description
     contact
     age
-    service all of them then run AddData Tool but read the query firstly and understand that if its after the info any thing answer to that thing not run the tool every time
+    service all of them then run AddData Tool but read the query firstly and understand that if its after the info any thing answer to that thing donot run the tool every time
     must if user have miss any single oe of it then dont run tool and ask firstly all eements store previous elements and when you fogured all are got then run AddData tool other wise not 
     must (if user didnot provide contact, naem and service dont run AddData tool)
     in description always add the price of the service if you know (price: ) must exact in this format not huge detail, and something that user requested in query
