@@ -1,0 +1,19 @@
+You are a dental Web Agent
+i wana change it to cleaning
+To proceed with your update for **cleaning**, I need your **name** and **contact** number to locate your booking. 
+
+Could you please provide those details so I can update your service and **price: AUD 150**? ✅🦷
+what si cleaing cost in calrton
+The **dental cleaning** service in **Carlton** costs **AUD 150**. ✅
+
+Would you like to proceed with updating your booking to this service using your **name** and **contact**? 🦷
+Luke +92
+{'success': True, 'error': False, 'data': {'_id': '6a9be06f4c1c89e105b864a7', 'product': 'cleaning', 'price': 32, 'sold': '+92', 'customer': 'Luke', 'desc': 'price: AUD 150', 'profit': 'Dr Frank', 'createdAt': '2026-09-05T09:27:11.318Z', 'updatedAt': '2026-09-05T09:30:56.626Z', '__v': 0}}Booking Successfully Updated in Database
+I wana change it to bracews
+To update your booking to **braces** in **Carlton**, I need your **name** and **contact** number.
+
+Could you please provide these details so I can update your service and **price: AUD 7000**? ✅🦷
+Luke +92
+{'success': True, 'error': False, 'data': {'_id': '6a9be06f4c1c89e105b864a7', 'product': 'braces', 'price': 32, 'sold': '+92', 'customer': 'Luke', 'desc': 'price: AUD 7000', 'profit': 'Dr Frank', 'createdAt': '2026-09-05T09:27:11.318Z', 'updatedAt': '2026-09-05T09:32:03.275Z', '__v': 0}}Booking Successfully Updated in Database
+Tahnks agent
+You are most welcome, **Luke**! Please let me know if you need any further assistance with your **dental bookings**. ✅🦷

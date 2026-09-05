@@ -9,6 +9,7 @@ from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 from langchain_huggingface import HuggingFaceEmbeddings
 from dental_data import dental
+from typing import Optional
 import time
 import requests
 import json
@@ -18,6 +19,7 @@ load_dotenv()
 app = FastAPI()
 model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 
+API="mongodb://zeeshanalizafar53_db_user:K0Ae9OB2vKrhJOhP@ac-xw9edx7-shard-00-00.laivntp.mongodb.net:27017,ac-xw9edx7-shard-00-01.laivntp.mongodb.net:27017,ac-xw9edx7-shard-00-02.laivntp.mongodb.net:27017/?ssl=true&replicaSet=atlas-j0742x-shard-0&authSource=admin&appName=AI-Database"
 connect = MongoClient(API)
 print("DB connected Successfully...")
 
@@ -49,7 +51,10 @@ messages = [
 
 prompts = PromptTemplate(
     template = """
-    "Must When user want to say he want to cancel booking take 2 values  one the Name and contact  then run the "DeleteTool" must both values no other value is needed"
+
+    "for update  ----dont ask for age and description  if user not want to update age musttttttttt!!!!~!! if i saw you ask age or description if user not provided i would beat you  ,if user update service you must  also must  have to  update servce cst in descriton ---"
+
+    "only when user say cancel or delte not for update Must When user want to say he want to cancel booking take 2 values  one the Name and contact  then run the "DeleteTool" must both values no other value is needed"
 
     Take this data:{text} and ans this query of user:{query}, this is the chat history:{history} take context of history and ans the last question not all
     always summarize response in 2 lines max and ask questions in end relateable and also use 2 max emoji per response green tick emoji must be use
@@ -59,10 +64,15 @@ prompts = PromptTemplate(
     description
     contact
     age
-    service all of them then run AddData Tool but read the query firstly and understand that if its after the info any thing answer to that thing donot run the tool every time
+    service all of them then run AddData Tool but read the query firstly and understand that if its after the info any thing answer to that thing not run the tool every time
     must if user have miss any single oe of it then dont run tool and ask firstly all eements store previous elements and when you fogured all are got then run AddData tool other wise not 
     must (if user didnot provide contact, naem and service dont run AddData tool)
     in description always add the price of the service if you know (price: ) must exact in this format not huge detail, and something that user requested in query
+
+
+    Must( run only when user say for update or change not for delte, When USer ask he want to specifically update the elements in booking ask must from him his only (contact and Name) and the thing he want to update any one(age or  service or service not all ) then run "UpdateTool" ,must donot ask that element the  user not want to udate  and  without these conditions dont even run UpdateTool, if whe didnot know name and contact just say him to cancel the booking first ,
+    if user update service you must  also must  have to  update servce cst in descriton 
+    
     
     
 
@@ -75,6 +85,12 @@ prompts = PromptTemplate(
     contact:str,
     age:int,
     service:str 
+
+
+
+
+
+   if you see this message in messages 'record Deleteted' tell user record deleted
   
     """,
     include_variables=['text','query','history']
@@ -111,6 +127,19 @@ contact:str
     }
 
 
+
+@tool 
+def UpdateTool(  name: str,
+    contact: str,
+    description: Optional[str] = None,
+    age: Optional[int] = None,
+    service: Optional[str] = None
+):
+    """Tool for Updation"""
+    return {
+    name,
+    contact
+    }
 
 
 
@@ -149,7 +178,7 @@ def Dental(item:str=Body(...)):
   
         messages.append(HumanMessage(item))
         prompt = prompts.invoke({'text':text, 'query':item, 'history':messages})
-        models= model.bind_tools([AddData,DeleteTool])
+        models= model.bind_tools([AddData,DeleteTool,UpdateTool])
         result = models.invoke(prompt)
         print(result)
         if result.tool_calls:
@@ -159,23 +188,26 @@ def Dental(item:str=Body(...)):
 
                 print(result.tool_calls[0]['args'])
                 a = result.tool_calls[0]['args']
+                
                 payload= {
                     "customer":a['name'],
                     "product":a['service'],
-                    "price":a['age'],
+                      "price":a['age'],
+               
                     "sold":a['contact'],
                     "desc":a['description'],
                 
-                    
             
                 }
-            
+               
 
 
                 API = "https://dentist-web-agent-dashboard.vercel.app/api/form/form-post"
                 res = requests.post(API,json = payload)
-                print(res.json())
-                messages.append(AIMessage(content="Booking Successfully recorded in Database"))
+      
+                response = res.json()
+                print(response)
+                messages.append(AIMessage(content=f"{response}Booking Successfully recorded in Database"))
                 prompt = prompts.invoke({'text':text, 'query':item, 'history':messages})
                 with open('chat.txt','w',encoding="utf-8") as f:
                     for message in messages:
@@ -208,7 +240,8 @@ def Dental(item:str=Body(...)):
                 API = "https://dentist-web-agent-dashboard.vercel.app/api/form/cancel"
                 res = requests.post(API,json = payload)
                 print(res.json())
-                messages.append(AIMessage(content="Booking Successfully Cancelled"))
+                response = res.json()
+                messages.append(AIMessage(content=f"{response}Booking Successfully Cancelled"))
                 prompt = prompts.invoke({'text':text, 'query':item, 'history':messages})
                 with open('chat.txt','w',encoding="utf-8") as f:
                     for message in messages:
@@ -216,6 +249,47 @@ def Dental(item:str=Body(...)):
         
                 res = model.invoke(prompt)
                 return JSONResponse(status_code=200, content=res.content[0]['text'])
+
+        if result.tool_calls:
+            tool = result.tool_calls[0]
+        
+            if  tool.get('name') == 'UpdateTool':
+
+                print(result.tool_calls[0]['args'])
+                a = result.tool_calls[0]['args']
+                payload= {
+                    "customer":a['name'],
+         
+                  
+                    "sold":a['contact'],
+                 
+                
+                    
+            
+                }
+                if a.get("age") is not None:
+                    payload["price"] = a["age"]
+                if len(a.get("description", "")) > 1:
+                    payload["desc"] = a["description"]
+                if len(a.get("service", "")) > 1:
+                    payload["product"] = a["service"]
+            
+            
+
+
+                API = "https://dentist-web-agent-dashboard.vercel.app/api/form/update"
+                res = requests.put(API,json = payload)
+                print(res.json())
+                response = res.json()
+                messages.append(AIMessage(content=f"{response}Booking Successfully Updated in Database"))
+                prompt = prompts.invoke({'text':text, 'query':item, 'history':messages})
+                with open('chat.txt','w',encoding="utf-8") as f:
+                    for message in messages:
+                        f.write(message.content + "\n")
+            
+                res = model.invoke(prompt)
+                return JSONResponse(status_code=200, content=res.content[0]['text'])
+        
 
 
         else:
