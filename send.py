@@ -2,7 +2,6 @@ import smtplib
 import time
 from email.message import EmailMessage
 Email = "zeeshanalizafar53@gmail.com"
-APP_Password = "xkof xjmd fuue byiv"
 
 # recipents = [
 #     {"email":"zeeshanalizafar032@gmail.com","name":"Zeeshan Ali Zafar"},
