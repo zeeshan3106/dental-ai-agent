@@ -10,6 +10,8 @@ from langchain_mongodb import MongoDBAtlasVectorSearch
 from langchain_huggingface import HuggingFaceEmbeddings
 from dental_data import dental
 from typing import Optional
+from send import EmailSend
+from pydantic import EmailStr
 import time
 import requests
 import json
@@ -90,7 +92,10 @@ prompts = PromptTemplate(
 
 
 
-   if you see this message in messages 'record Deleteted' tell user record deleted
+   Must-if you see this kind of  message recently  in {history} 'record Deleteted' tell user record deleted
+
+   Must-if you see this kind message recently in {history}  success True 'error False, data tell user record added successfully
+
   
     """,
     include_variables=['text','query','history']
@@ -104,7 +109,7 @@ prompts = PromptTemplate(
 def AddData(
     name:str,
     description:str,
-    contact:str,
+    contact:EmailStr,
     age:int,
     service:str
 ):
@@ -204,6 +209,14 @@ def Dental(item:str=Body(...)):
 
                 API = "https://dentist-web-agent-dashboard.vercel.app/api/form/form-post"
                 res = requests.post(API,json = payload)
+                EmailSend(
+                    to_email=a['contact']
+                    , name=a['name']
+                    ,age = a['age']
+                    ,service=a['service'],
+                    desc=a['description']
+
+                )
       
                 response = res.json()
                 print(response)
@@ -214,6 +227,11 @@ def Dental(item:str=Body(...)):
                         f.write(message.content + "\n")
             
                 res = model.invoke(prompt)
+
+                
+
+
+
                 return JSONResponse(status_code=200, content=res.content[0]['text'])
         
         if result.tool_calls:
