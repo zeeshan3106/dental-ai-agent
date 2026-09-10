@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 
-# from dental_data import dental
+from dental_data import dental
 from typing import Optional
 from send import EmailSend
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,7 +21,7 @@ from langchain_core.tools import tool
 load_dotenv()
 import os
 app = FastAPI()
-API = os.getenv("API")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -29,41 +29,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+API = os.getenv("API")
 
-if not API:
-    raise RuntimeError("API environment variable is missing")
+model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 
-if not GEMINI_API_KEY:
-    raise RuntimeError("GEMINI_API_KEY environment variable is missing")
+connect = MongoClient(API)
+print("DB connected Successfully...")
+
+database = connect["database"]
+collection = database["dental"]
+embeddings = GoogleGenerativeAIEmbeddings(model = "models/gemini-embedding-001")
+db = MongoDBAtlasVectorSearch(
+
+   
+    collection = collection,
+     embedding= embeddings,
+    index_name = "vector_index"
+    
+)
 
 
-def get_model():
-    return ChatGoogleGenerativeAI(
-        model="gemini-3.1-flash-lite",
-        google_api_key=GEMINI_API_KEY
-    )
 
-
-def get_db():
-    connect = MongoClient(
-        API,
-        serverSelectionTimeoutMS=5000
-    )
-
-    database = connect["database"]
-    collection = database["dental"]
-
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/gemini-embedding-001",
-        google_api_key=GEMINI_API_KEY
-    )
-
-    return MongoDBAtlasVectorSearch(
-        collection=collection,
-        embedding=embeddings,
-        index_name="vector_index"
-    )
 
 
 
@@ -184,8 +170,6 @@ def UpdateTool(  name: str,
 
 @app.post('/Dental')
 def Dental(item:str=Body(...)):
-        model = get_model()
-        db = get_db()
        
       
        
