@@ -4,13 +4,12 @@ langchain-community
 
 
 langchain-google-genai
-google-generativeai
+
 
 
 python-dotenv
 
 
-langchain-chroma
 langchain-mongodb
 pymongo
 fastapi
