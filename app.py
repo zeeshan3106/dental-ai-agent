@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 
-from dental_data import dental
+# from dental_data import dental
 from typing import Optional
 from send import EmailSend
 from fastapi.middleware.cors import CORSMiddleware
