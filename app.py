@@ -30,6 +30,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 API = os.getenv("API")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 
 connect = MongoClient(API)
