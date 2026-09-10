@@ -2,32 +2,15 @@ langchain
 langchain-core
 langchain-community
 
-langchain-openai
-openai
-
-
-langchain-anthropic
-
 
 langchain-google-genai
 google-generativeai
 
 
-langchain-huggingface
-transformers
-huggingface-hub
-
-
 python-dotenv
 
-
-numpy 
-scikit-learn
-
-streamlit
 
 langchain-chroma
 langchain-mongodb
 pymongo
-fastapi
 fastapi
