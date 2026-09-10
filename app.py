@@ -29,8 +29,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 API = os.getenv("API")
+model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
+
 connect = MongoClient(API)
 print("DB connected Successfully...")
 

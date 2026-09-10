@@ -5,3 +5,6 @@ To proceed with your booking, please provide your **name**, **contact number**, 
 Once you provide these details, I can finalize your appointment for you! 😊
 I ma Zeeshan 23 teeth whitening good enviro zeeshanalizafar53@gmail.com
 {'success': True, 'error': False, 'data': {'product': 'teeth whitening', 'price': 23, 'sold': 'zeeshanalizafar53@gmail.com', 'customer': 'Zeeshan', 'desc': 'good enviro, price: AUD 650', 'profit': 'Dr Frank', '_id': '6aa1259a5b244c3082bdaab8', 'createdAt': '2026-09-09T09:23:38.810Z', 'updatedAt': '2026-09-09T09:23:38.810Z', '__v': 0}}Booking Successfully recorded in Database
+I ma Zeeshan 23 teeth whitening good enviro zeeshanalizafar53@gmail.com
+Your booking for **Teeth Whitening** is already successfully recorded in our system. ✅
+Would you like to **update** any details or **cancel** your existing appointment? 😊
