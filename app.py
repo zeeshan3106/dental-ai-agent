@@ -11,17 +11,27 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from dental_data import dental
 from typing import Optional
 from send import EmailSend
+from fastapi.middleware.cors import CORSMiddleware
+
 from pydantic import EmailStr
 import time
 import requests
 import json
 from langchain_core.tools import tool
 load_dotenv()
-
+import os
 app = FastAPI()
-model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 
-onnect = MongoClient(API)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+model = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
+API = os.getenv("API")
+connect = MongoClient(API)
 print("DB connected Successfully...")
 
 database = connect["database"]

@@ -1,7 +1,12 @@
 import smtplib
 import time
 from email.message import EmailMessage
-Email = "zeeshanalizafar53@gmail.com"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+Email = os.getenv("Email")
+APP_Password = os.getenv("APP_Password")
+
 
 # recipents = [
 #     {"email":"zeeshanalizafar032@gmail.com","name":"Zeeshan Ali Zafar"},
