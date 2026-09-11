@@ -220,14 +220,14 @@ def Dental(item:str=Body(...)):
 
                 API = "https://dentist-web-agent-dashboard.vercel.app/api/form/form-post"
                 res = requests.post(API,json = payload)
-                EmailSend(
-                    to_email=a['contact']
-                    , name=a['name']
-                    ,age = a['age']
-                    ,service=a['service'],
-                    desc=a['description']
+                # EmailSend(
+                #     to_email=a['contact']
+                #     , name=a['name']
+                #     ,age = a['age']
+                #     ,service=a['service'],
+                #     desc=a['description']
 
-                )
+                # )
       
                 response = res.json()
                 print(response)
@@ -262,6 +262,7 @@ def Dental(item:str=Body(...)):
                     
             
                 }
+                
                 print("This is payyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",payload)
             
 
