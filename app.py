@@ -10,7 +10,7 @@ from langchain_mongodb import MongoDBAtlasVectorSearch
 
 from dental_data import dental
 from typing import Optional
-from send import EmailSend
+
 from fastapi.middleware.cors import CORSMiddleware
 
 from pydantic import EmailStr
@@ -262,7 +262,7 @@ def Dental(item:str=Body(...)):
                     
             
                 }
-                
+
                 print("This is payyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",payload)
             
 
