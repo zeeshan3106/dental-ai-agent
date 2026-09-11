@@ -20,6 +20,8 @@ import json
 from langchain_core.tools import tool
 load_dotenv()
 import os
+
+
 app = FastAPI()
 
 app.add_middleware(
